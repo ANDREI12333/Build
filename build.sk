@@ -1,0 +1,48 @@
+# =========================================
+# Build v1.0 by ANDREI12333
+# If you edit this file please don't repost it and claim it as your own, Or if you do atleast give credits
+# =========================================
+
+options:
+ prefix: "&6Build&7:&f"
+ version: 1.0
+
+on break:
+ if {build.%player%} is false:
+  cancel event
+
+ else if {build.%player%} is true:
+  stop
+
+on place:
+ if {build.%player%} is false:
+  cancel event
+
+ else if {build.%player%} is true:
+  stop
+
+on load:
+  set {build.prefix} to {@prefix}
+
+on join:
+ set {build.%player%} to false
+
+command /build [<text>]:
+  usage: &cUsage: /build [<player>]
+  permission: skript.build
+  permission message: Unknown command, Use "/help" for help.
+  trigger:
+    if arg-1 is set:
+      if {build.%arg-1%} is false:
+        set {build.%arg-1%} to true
+        send "%{build.prefix}%&a Building for %arg-1% is now enabled!" to player
+      else if {build.%arg-1%} is true:
+        set {build.%arg-1%} to false
+        send "%{build.prefix}%&c Building for %arg-1% is now disabled!" to player
+    else if arg-1 is not set:
+      if {build.%player%} is false:
+        set {build.%player%} to true
+        send "%{build.prefix}%&a Building for %player% is now enabled!" to player
+      else if {build.%player%} is true:
+        set {build.%player%} to false
+        send "%{build.prefix}%&c Building for %player% is now disabled!" to player
